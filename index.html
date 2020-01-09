@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>作品集</title>
+    <style>
+      body {
+        background-color: black;
+      }
+      * {
+        margin: 0 auto;
+      }
+      div {
+        width: 1000px;
+        margin-bottom: 40px;
+        min-height: 563px;
+      }
+
+      img {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div><img src="./img/1.jpg" alt="img" /></div>
+    <div><img src="./img/2.jpg" alt="img" /></div>
+    <div><img src="./img/3.jpg" alt="img" /></div>
+    <div><img src="./img/4.jpg" alt="img" /></div>
+    <div><img src="./img/5.jpg" alt="img" /></div>
+    <div><img src="./img/6.jpg" alt="img" /></div>
+    <div><img src="./img/7.jpg" alt="img" /></div>
+    <div><img src="./img/8.jpg" alt="img" /></div>
+    <div><img src="./img/9.jpg" alt="img" /></div>
+    <div><img src="./img/10.jpg" alt="img" /></div>
+    <div><img src="./img/11.jpg" alt="img" /></div>
+    <div><img src="./img/12.jpg" alt="img" /></div>
+    <div><img src="./img/13.jpg" alt="img" /></div>
+    <div><img src="./img/14.jpg" alt="img" /></div>
+    <div><img src="./img/15.jpg" alt="img" /></div>
+    <div><img src="./img/16.jpg" alt="img" /></div>
+    <div><img src="./img/17.jpg" alt="img" /></div>
+    <div><img src="./img/18.jpg" alt="img" /></div>
+    <div><img src="./img/18-1.jpg" alt="img" /></div>
+    <div><img src="./img/19.jpg" alt="img" /></div>
+    <div><img src="./img/19-1.jpg" alt="img" /></div>
+    <div><img src="./img/20.jpg" alt="img" /></div>
+    <div><img src="./img/21.jpg" alt="img" /></div>
+    <div><img src="./img/22.jpg" alt="img" /></div>
+    <div><img src="./img/23.jpg" alt="img" /></div>
+    <div><img src="./img/23-1.jpg" alt="img" /></div>
+    <div><img src="./img/24.jpg" alt="img" /></div>
+    <div><img src="./img/25.jpg" alt="img" /></div>
+    <div><img src="./img/25-1.jpg" alt="img" /></div>
+    <div><img src="./img/26.jpg" alt="img" /></div>
+    <div><img src="./img/27.jpg" alt="img" /></div>
+    <script>
+      window.onload = function (ev) {
+        let viewheight = document.documentElement.clientWidth
+        function lazyload () {
+          //实现懒加载
+          let allNode = document.querySelectorAll('img[lazyload][data-origin]')
+
+          //进行遍历
+          Array.from(allNode).forEach((item, index) => {
+            let react
+            console.log(item.dataset)
+            if (item.dataset.origin === '') {
+              return
+            }
+            react = item.getBoundingClientRect()
+            if (react.bottom >= 0 && react.top < viewheight) {
+              //到达可视区域
+              //给图片提供地址
+              let img = new Image()
+              img.src = item.dataset.origin
+              img.onload = () => {
+                item.src = img.src
+              }
+              item.removeAttribute('data-origin')
+              item.removeAttribute('lazyload')
+            }
+          })
+        }
+        lazyload() //上来先调用一下
+        //绑定事件
+        document.addEventListener('scroll', lazyload)
+      }
+    </script>
+  </body>
+</html>
